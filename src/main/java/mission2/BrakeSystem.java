@@ -6,6 +6,10 @@ public class BrakeSystem implements BrakeSystemInterface{
     public int getBrakeSystem() {
         return brakeSystem;
     }
+    public String getBrakeSystemName(){
+        return brakeSystem==1? "Mando":
+                brakeSystem==2? "Continental":"Bosch";
+    }
 
     @Override
     public void selectOptions(int a) {

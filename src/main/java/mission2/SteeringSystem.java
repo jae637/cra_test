@@ -22,4 +22,8 @@ public class SteeringSystem implements SteeringSystemInterface{
         }
         return true;
     }
+
+    public String getSteeringSystemName() {
+        return steeringSystem==1? "Bosch":"Mobis";
+    }
 }

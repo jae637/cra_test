@@ -7,6 +7,11 @@ public class Engine implements EngineInterface{
         return engine;
     }
 
+    public String getEngineName() {
+        String[] engNames = {"", "GM", "TOYOTA", "WIA"};
+        return engNames[engine];
+    }
+
     @Override
     public void selectOptions(int a) {
         this.engine = a;

@@ -3,11 +3,17 @@ package mission2;
 import java.util.Objects;
 
 public class CarType implements CarTypeInterface{
+    private int carType;
+
     public int getCarType() {
         return carType;
     }
 
-    private int carType;
+    public String getCarTypeName(){
+        String[] carNames = {"", "Sedan", "SUV", "Truck"};
+
+        return carNames[carType];
+    }
 
     @Override
     public void selectOptions(int a) {
