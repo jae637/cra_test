@@ -37,7 +37,7 @@ public class Car {
             SelectOptionInterface selectCommend = getOptions();
             if(selectCommend != null) selectCommend.selectOptions(answer);
             delay(800);
-            nextStep();
+            step++;
         } else {    // 실행, 테스트 스탭 시
             if (answer == 1) {
                 runProducedCar();
@@ -91,23 +91,17 @@ public class Car {
     public void runProducedCar() {
         if (! isValidCheck()) {
             System.out.println("자동차가 동작되지 않습니다");
-            return;
         }
-        if (engine.getEngine() == 4) {
+        else if (engine.getEngine() == 4) {
             System.out.println("엔진이 고장나있습니다.");
             System.out.println("자동차가 움직이지 않습니다.");
-            return;
+        }else{
+            System.out.printf("Car Type : %s\n", carType.getCarTypeName());
+            System.out.printf("Engine   : %s\n", engine.getEngineName());
+            System.out.printf("Brake    : %s\n", brakeSystem.getBrakeSystemName());
+            System.out.printf("Steering : %s\n", steeringSystem.getSteeringSystemName());
+            System.out.println("자동차가 동작됩니다.");
         }
-
-        System.out.printf("Car Type : %s\n", carType.getCarTypeName());
-        System.out.printf("Engine   : %s\n", engine.getEngineName());
-        System.out.printf("Brake    : %s\n", brakeSystem.getBrakeSystemName());
-        System.out.printf("Steering : %s\n", steeringSystem.getSteeringSystemName());
-        System.out.println("자동차가 동작됩니다.");
-    }
-
-    private void nextStep(){
-        step++;
     }
 
     private SelectOptionInterface getOptions(){
