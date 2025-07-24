@@ -1,5 +1,8 @@
 package mission2;
 
+import mission2.car.Car;
+import mission2.display.Display;
+
 import java.util.Scanner;
 
 public class Assemble {

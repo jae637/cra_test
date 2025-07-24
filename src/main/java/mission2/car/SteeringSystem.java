@@ -1,4 +1,4 @@
-package mission2;
+package mission2.car;
 
 public class SteeringSystem implements SteeringSystemInterface{
     private int steeringSystem;

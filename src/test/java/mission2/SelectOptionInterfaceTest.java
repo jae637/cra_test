@@ -1,5 +1,9 @@
 package mission2;
 
+import mission2.car.BrakeSystem;
+import mission2.car.CarType;
+import mission2.car.Engine;
+import mission2.car.SteeringSystem;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

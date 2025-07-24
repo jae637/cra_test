@@ -1,10 +1,10 @@
-package mission2;
+package mission2.car;
 
-import static mission2.BrakeSystemInterface.*;
-import static mission2.CarTypeInterface.*;
-import static mission2.EngineInterface.TOYOTA;
-import static mission2.EngineInterface.WIA;
-import static mission2.SteeringSystemInterface.BOSCH_S;
+import static mission2.car.BrakeSystemInterface.*;
+import static mission2.car.CarTypeInterface.*;
+import static mission2.car.EngineInterface.TOYOTA;
+import static mission2.car.EngineInterface.WIA;
+import static mission2.car.SteeringSystemInterface.BOSCH_S;
 
 public class Car {
     public static final int CarType_Q      = 0;

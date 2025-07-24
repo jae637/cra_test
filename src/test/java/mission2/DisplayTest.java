@@ -1,9 +1,9 @@
 package mission2;
 
+import mission2.car.Car;
+import mission2.display.Display;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class DisplayTest {

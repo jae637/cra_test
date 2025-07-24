@@ -1,4 +1,4 @@
-package mission2;
+package mission2.car;
 
 public class BrakeSystem implements BrakeSystemInterface{
     private int brakeSystem;

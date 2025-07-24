@@ -1,5 +1,6 @@
 package mission2;
 
+import mission2.car.Car;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

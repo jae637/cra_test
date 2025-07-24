@@ -1,6 +1,4 @@
-package mission2;
-
-import java.util.Objects;
+package mission2.car;
 
 public class CarType implements CarTypeInterface{
     private int carType;
