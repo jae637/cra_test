@@ -23,89 +23,113 @@ public class Assemble {
         int step = CarType_Q;
 
         while (true) {
-            System.out.print(CLEAR_SCREEN);
-            System.out.flush();
+            displayStep(step);
 
-            switch (step) {
-                case CarType_Q:
-                    showCarTypeMenu(); break;
-                case Engine_Q:
-                    showEngineMenu(); break;
-                case BrakeSystem_Q:
-                    showBrakeMenu(); break;
-                case SteeringSystem_Q:
-                    showSteeringMenu(); break;
-                case Run_Test:
-                    showRunTestMenu(); break;
-            }
+            //exit 입력 시 null
+            String buf = selectOption(sc);
+            if (buf == null) break;
 
-            System.out.print("INPUT > ");
-            String buf = sc.nextLine().trim();
+            // input 유효성 검사 실패 시 null
+            Integer answer = validAndParseValue(buf, step);
+            if (answer == null) continue;
 
-            if (buf.equalsIgnoreCase("exit")) {
-                System.out.println("바이바이");
-                break;
-            }
-
-            int answer;
-            try {
-                answer = Integer.parseInt(buf);
-            } catch (NumberFormatException e) {
-                System.out.println("ERROR :: 숫자만 입력 가능");
-                delay(800);
-                continue;
-            }
-
-            if (!isValidRange(step, answer)) {
-                delay(800);
-                continue;
-            }
-
-            if (answer == 0) {
-                if (step == Run_Test) {
-                    step = CarType_Q;
-                } else if (step > CarType_Q) {
-                    step--;
-                }
-                continue;
-            }
-
-            switch (step) {
-                case CarType_Q:
-                    selectCarType(answer);
-                    delay(800);
-                    step = Engine_Q;
-                    break;
-                case Engine_Q:
-                    selectEngine(answer);
-                    delay(800);
-                    step = BrakeSystem_Q;
-                    break;
-                case BrakeSystem_Q:
-                    selectBrakeSystem(answer);
-                    delay(800);
-                    step = SteeringSystem_Q;
-                    break;
-                case SteeringSystem_Q:
-                    selectSteeringSystem(answer);
-                    delay(800);
-                    step = Run_Test;
-                    break;
-                case Run_Test:
-                    if (answer == 1) {
-                        runProducedCar();
-                        delay(2000);
-                    } else if (answer == 2) {
-                        System.out.println("Test...");
-                        delay(1500);
-                        testProducedCar();
-                        delay(2000);
-                    }
-                    break;
-            }
+            step = progressStep(answer, step);
         }
 
         sc.close();
+    }
+
+    private static void displayStep(int step) {
+        System.out.print(CLEAR_SCREEN);
+        System.out.flush();
+
+        switch (step) {
+            case CarType_Q:
+                showCarTypeMenu(); break;
+            case Engine_Q:
+                showEngineMenu(); break;
+            case BrakeSystem_Q:
+                showBrakeMenu(); break;
+            case SteeringSystem_Q:
+                showSteeringMenu(); break;
+            case Run_Test:
+                showRunTestMenu(); break;
+        }
+
+        System.out.print("INPUT > ");
+    }
+
+    private static String selectOption(Scanner sc) {
+        String buf = sc.nextLine().trim();
+
+        if (buf.equalsIgnoreCase("exit")) {
+            System.out.println("바이바이");
+            return null;
+        }
+        return buf;
+    }
+
+    private static Integer validAndParseValue(String buf, int step) {
+        int answer;
+        try {
+            answer = Integer.parseInt(buf);
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR :: 숫자만 입력 가능");
+            delay(800);
+            return null;
+        }
+
+        if (!isValidRange(step, answer)) {
+            delay(800);
+            return null;
+        }
+        return answer;
+    }
+
+    private static int progressStep(Integer answer, int step) {
+        if (answer == 0) {
+            if (step == Run_Test) {
+                step = CarType_Q;
+            } else if (step > CarType_Q) {
+                step--;
+            }
+            return step;
+        }
+
+        switch (step) {
+            case CarType_Q:
+                selectCarType(answer);
+                delay(800);
+                step = Engine_Q;
+                break;
+            case Engine_Q:
+                selectEngine(answer);
+                delay(800);
+                step = BrakeSystem_Q;
+                break;
+            case BrakeSystem_Q:
+                selectBrakeSystem(answer);
+                delay(800);
+                step = SteeringSystem_Q;
+                break;
+            case SteeringSystem_Q:
+                selectSteeringSystem(answer);
+                delay(800);
+                step = Run_Test;
+                break;
+            case Run_Test:
+                if (answer == 1) {
+                    runProducedCar();
+                    delay(2000);
+                } else if (answer == 2) {
+                    System.out.println("Test...");
+                    delay(1500);
+                    testProducedCar();
+                    delay(2000);
+                }
+                break;
+        }
+        return step;
     }
 
     private static void showCarTypeMenu() {
