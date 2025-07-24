@@ -22,7 +22,7 @@ public class Assemble {
             Integer answer = validAndParseValue(buf, car);
             if (answer == null) continue;
 
-            car.excuteStep(answer);
+            car.executeStep(answer);
         }
 
         sc.close();

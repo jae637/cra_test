@@ -13,12 +13,11 @@ public class Car {
     public static final int SteeringSystem_Q = 3;
     public static final int Run_Test       = 4;
 
-
     private int step;
-    private CarType carType = new CarType();
-    private Engine engine = new Engine();
-    private BrakeSystem brakeSystem = new BrakeSystem();
-    private SteeringSystem steeringSystem = new SteeringSystem();
+    private final CarType carType = new CarType();
+    private final Engine engine = new Engine();
+    private final BrakeSystem brakeSystem = new BrakeSystem();
+    private final SteeringSystem steeringSystem = new SteeringSystem();
 
     public boolean isValidCheck() {
         if ( carType.getCarType() == SEDAN && brakeSystem.getBrakeSystem() == CONTINENTAL) return false;
@@ -83,7 +82,7 @@ public class Car {
         return step;
     }
 
-    public void excuteStep(Integer answer) {
+    public void executeStep(Integer answer) {
         if (answer == 0) {
             if (this.step == Run_Test) {
                 this.step = CarType_Q;
@@ -92,38 +91,38 @@ public class Car {
             }
         }
 
-        switch (this.step) {
-            case CarType_Q:
-                carType.selectCarType(answer);
-                delay(800);
-                this.step = Engine_Q;
-                break;
-            case Engine_Q:
-                engine.selectEngine(answer);
-                delay(800);
-                this.step = BrakeSystem_Q;
-                break;
-            case BrakeSystem_Q:
-                brakeSystem.selectBrakeSystem(answer);
-                delay(800);
-                this.step = SteeringSystem_Q;
-                break;
-            case SteeringSystem_Q:
-                steeringSystem.selectSteeringSystem(answer);
-                delay(800);
-                this.step = Run_Test;
-                break;
-            case Run_Test:
-                if (answer == 1) {
-                    runProducedCar();
-                    delay(2000);
-                } else if (answer == 2) {
-                    System.out.println("Test...");
-                    delay(1500);
-                    testProducedCar();
-                    delay(2000);
-                }
-                break;
+        if(step!=Run_Test){
+            SelectOptionInterface selectCommend = getOptions();
+            selectCommend.selectOptions(answer);
+            delay(800);
+            nextStep();
+        }else{
+            if (answer == 1) {
+                runProducedCar();
+                delay(2000);
+            } else if (answer == 2) {
+                System.out.println("Test...");
+                delay(1500);
+                testProducedCar();
+                delay(2000);
+            }
         }
+    }
+
+    public void nextStep(){
+        step++;
+    }
+
+    public SelectOptionInterface getOptions(){
+        if (step == CarType_Q) {
+            return carType;
+        } else if (step == Engine_Q) {
+            return engine;
+        } else if (step == BrakeSystem_Q) {
+            return brakeSystem;
+        } else if (step == SteeringSystem_Q) {
+            return steeringSystem;
+        }
+        return null;
     }
 }

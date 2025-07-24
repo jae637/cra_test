@@ -8,8 +8,7 @@ public class SteeringSystem implements SteeringSystemInterface{
     }
 
     @Override
-    public void selectSteeringSystem(int a) {
-
+    public void selectOptions(int a) {
         this.steeringSystem = a;
         String name = a == 1 ? "BOSCH" : "MOBIS";
         System.out.printf("%s 조향장치를 선택하셨습니다.\n", name);
