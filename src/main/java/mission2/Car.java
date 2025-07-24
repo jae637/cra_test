@@ -19,6 +19,39 @@ public class Car {
     private final BrakeSystem brakeSystem = new BrakeSystem();
     private final SteeringSystem steeringSystem = new SteeringSystem();
 
+    public int getStep() {
+        return step;
+    }
+
+    public void executeStep(Integer answer) {
+        // precondition check
+        if (!isValidRange(answer)) {    // 입력값 범위 체크
+            delay(800);
+        }else if (answer == 0) {    // 이전 단계 요청시
+            if (this.step == Run_Test) {
+                this.step = CarType_Q;
+            } else if (this.step > CarType_Q) {
+                this.step--;
+            }
+        } else if (step != Run_Test) { // 조립 스탭시
+            SelectOptionInterface selectCommend = getOptions();
+            if(selectCommend != null) selectCommend.selectOptions(answer);
+            delay(800);
+            nextStep();
+        } else {    // 실행, 테스트 스탭 시
+            if (answer == 1) {
+                runProducedCar();
+                delay(2000);
+            } else if (answer == 2) {
+                System.out.println("Test...");
+                delay(1500);
+                testProducedCar();
+                delay(2000);
+            }
+        }
+
+    }
+
     public void delay(int ms) {
         try {
             Thread.sleep(ms);
@@ -39,7 +72,7 @@ public class Car {
         return true;
     }
 
-    public void testProducedCar() {
+    private void testProducedCar() {
         if (carType.getCarType() == SEDAN && brakeSystem.getBrakeSystem() == CONTINENTAL) {
             fail("Sedan에는 Continental제동장치 사용 불가");
         } else if (carType.getCarType() ==  SUV && engine.getEngine() ==  TOYOTA) {
@@ -55,7 +88,7 @@ public class Car {
         }
     }
 
-    public void runProducedCar() {
+    private void runProducedCar() {
         if (! isValidCheck()) {
             System.out.println("자동차가 동작되지 않습니다");
             return;
@@ -73,44 +106,11 @@ public class Car {
         System.out.println("자동차가 동작됩니다.");
     }
 
-    public int getStep() {
-        return step;
-    }
-
-    public void executeStep(Integer answer) {
-        // precondition check
-        if (!isValidRange(answer)) {    // 입력값 범위 체크
-            delay(800);
-        }else if (answer == 0) {    // 이전 단계 요청시
-            if (this.step == Run_Test) {
-                this.step = CarType_Q;
-            } else if (this.step > CarType_Q) {
-                this.step--;
-            }
-        } else if (step != Run_Test) { // 조립 스탭시
-            SelectOptionInterface selectCommend = getOptions();
-            selectCommend.selectOptions(answer);
-            delay(800);
-            nextStep();
-        } else {    // 실행, 테스트 스탭 시
-            if (answer == 1) {
-                runProducedCar();
-                delay(2000);
-            } else if (answer == 2) {
-                System.out.println("Test...");
-                delay(1500);
-                testProducedCar();
-                delay(2000);
-            }
-        }
-
-    }
-
-    public void nextStep(){
+    private void nextStep(){
         step++;
     }
 
-    public SelectOptionInterface getOptions(){
+    private SelectOptionInterface getOptions(){
         if (step == CarType_Q) {
             return carType;
         } else if (step == Engine_Q) {
@@ -123,7 +123,7 @@ public class Car {
         return null;
     }
 
-    private boolean isValidRange(int ans) {
+    public boolean isValidRange(int ans) {
         SelectOptionInterface selectCommend = getOptions();
         if (selectCommend != null) {
             return selectCommend.validCheck(ans);
