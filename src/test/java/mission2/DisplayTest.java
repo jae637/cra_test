@@ -8,11 +8,11 @@ import static org.mockito.Mockito.*;
 
 class DisplayTest {
 
-    Display display = new Display();
     Display spyDisplay = spy(Display.class);
 
     @Test
     void displayStep() {
+        //given
         Car mockCar = mock(Car.class);
         when(mockCar.getStep())
                 .thenReturn(0)
@@ -21,6 +21,7 @@ class DisplayTest {
                 .thenReturn(3)
                 .thenReturn(4);
 
+        //then
         spyDisplay.displayStep(mockCar);
         spyDisplay.displayStep(mockCar);
         spyDisplay.displayStep(mockCar);
