@@ -83,20 +83,21 @@ public class Car {
     }
 
     public void executeStep(Integer answer) {
-        if (answer == 0) {
+        // precondition check
+        if (!isValidRange(answer)) {
+            delay(800);
+        }else if (answer == 0) {
             if (this.step == Run_Test) {
                 this.step = CarType_Q;
             } else if (this.step > CarType_Q) {
                 this.step--;
             }
-        }
-
-        if(step!=Run_Test){
+        } else if (step != Run_Test) {
             SelectOptionInterface selectCommend = getOptions();
             selectCommend.selectOptions(answer);
             delay(800);
             nextStep();
-        }else{
+        } else {
             if (answer == 1) {
                 runProducedCar();
                 delay(2000);
@@ -107,6 +108,7 @@ public class Car {
                 delay(2000);
             }
         }
+
     }
 
     public void nextStep(){
@@ -124,5 +126,41 @@ public class Car {
             return steeringSystem;
         }
         return null;
+    }
+
+    private boolean isValidRange(int ans) {
+        switch (step) {
+            case CarType_Q:
+                if (ans < 1 || ans > 3) {
+                    System.out.println("ERROR :: 차량 타입은 1 ~ 3 범위만 선택 가능");
+                    return false;
+                }
+                break;
+            case Engine_Q:
+                if (ans < 0 || ans > 4) {
+                    System.out.println("ERROR :: 엔진은 1 ~ 4 범위만 선택 가능");
+                    return false;
+                }
+                break;
+            case BrakeSystem_Q:
+                if (ans < 0 || ans > 3) {
+                    System.out.println("ERROR :: 제동장치는 1 ~ 3 범위만 선택 가능");
+                    return false;
+                }
+                break;
+            case SteeringSystem_Q:
+                if (ans < 0 || ans > 2) {
+                    System.out.println("ERROR :: 조향장치는 1 ~ 2 범위만 선택 가능");
+                    return false;
+                }
+                break;
+            case Run_Test:
+                if (ans < 0 || ans > 2) {
+                    System.out.println("ERROR :: Run 또는 Test 중 하나를 선택 필요");
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 }
