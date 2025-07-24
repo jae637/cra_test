@@ -88,7 +88,7 @@ public class Car {
         }
     }
 
-    private void runProducedCar() {
+    public void runProducedCar() {
         if (! isValidCheck()) {
             System.out.println("자동차가 동작되지 않습니다");
             return;

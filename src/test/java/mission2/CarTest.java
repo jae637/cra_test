@@ -24,21 +24,21 @@ class CarTest {
         // then
         verify(spyCar,times(0)).fail(anyString());
     }
-//
-//    @Test
-//    void executeStep_정상2_input() {
-//        // given
-//        spyCar.executeStep(2);
-//        spyCar.executeStep(2);
-//        spyCar.executeStep(2);
-//        spyCar.executeStep(2);
-//
-//        // when
-//        spyCar.executeStep(2);
-//
-//        // then
-//        verify(spyCar,times(0)).fail(anyString());
-//    }
+
+    @Test
+    void executeStep_정상2_input() {
+        // given
+        spyCar.executeStep(1);
+        spyCar.executeStep(1);
+        spyCar.executeStep(1);
+        spyCar.executeStep(1);
+
+        // when
+        spyCar.executeStep(1);
+
+        // then
+        verify(spyCar).runProducedCar();
+    }
 
     @Test
     void executeStep_이전단계_요청_input() {
