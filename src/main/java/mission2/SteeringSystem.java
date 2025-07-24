@@ -13,4 +13,13 @@ public class SteeringSystem implements SteeringSystemInterface{
         String name = a == 1 ? "BOSCH" : "MOBIS";
         System.out.printf("%s 조향장치를 선택하셨습니다.\n", name);
     }
+
+    @Override
+    public boolean validCheck(int ans) {
+        if (ans < 0 || ans > 2) {
+            System.out.println("ERROR :: 조향장치는 1 ~ 2 범위만 선택 가능");
+            return false;
+        }
+        return true;
+    }
 }
